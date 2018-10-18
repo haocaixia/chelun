@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import VueLazyload from 'vue-lazyload'
-
+import Alert from './utils/Alert'
+Vue.prototype.$alert=Alert;
 new Vue({
   el: '#app',
   router,

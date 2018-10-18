@@ -37,7 +37,6 @@ const mutations={
     },
     //获取的询价页面
     updataInquiry(state,payload){
-      
         state.inquiry=payload
     },
     upDataCityIdData(state,payload){

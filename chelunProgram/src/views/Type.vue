@@ -2,47 +2,44 @@
     <div class="detail">
         <p>全部车款</p>
         <div class="car">
-
             <div class="type">
-
                 <span @click="tab('全部')" :class="year=='全部'?'active':''">全部</span>
-                <span
-                    v-for="(item,index) in yearArr"
-                    :key="index"
-                    @click="tab(item)"
-                    :class="year==item?'active':''">{{item}}</span>
+                <span v-for="(item,index) in yearArr" :key="index" @click="tab(item)" :class="year==item?'active':''">{{item}}</span>
             </div>
-
             <div class="type-item" v-if="index==0">
                 <div v-for="(item,index) in list" :key="index">
                     <p>{{index}}</p>
                     <ul v-for="(value,key) in item" :key="key">
                         <li @click="tabType(value.car_id)">
-
-                            <p>{{value.market_attribute.year}}款 30周年纪念版 TFSI 进取版</p>
+                            <p>{{value.car_name}}</p>
                             <p>{{value.horse_power}}马力{{value.gear_num}}档双离合</p>
                             <p>
                                 <span>指导价
-                                    {{value.market_attribute.official_refer_price}}</span>
+                                            {{value.market_attribute.official_refer_price}}</span>
                                 <span>
-                                    {{value.market_attribute.dealer_price_min}}万起</span>
+                                            {{value.market_attribute.dealer_price_min}}万起</span>
                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-    import {mapState, mapActions, mapMutations} from 'vuex';
+    import {
+        mapState,
+        mapActions,
+        mapMutations
+    } from 'vuex';
     export default {
         data() {
-            return {index: 0}
+            return {
+                index: 0
+            }
         },
-        computed : {
+        computed: {
             ...mapState({
                 list3: state => state.detail.list3,
                 list: state => state.detail.list,
@@ -51,27 +48,42 @@
                 cityId: state => state.detail.cityId
             })
         },
-        methods : {
+        methods: {
             //同步
-            ...mapActions({getList3: 'detail/getList3', getYear: 'detail/getYear', all: 'detail/all', getCityIdData: 'detail/getCityIdData'}),
+            ...mapActions({
+                getList3: 'detail/getList3',
+                getYear: 'detail/getYear',
+                all: 'detail/all',
+                getCityIdData: 'detail/getCityIdData'
+            }),
             tab(year) {
                 //传年份
                 this.getYear(year)
                 this.all(year)
             },
-            
             tabType(carId) {
+                if (this.$route.query.ColorID) {
                     this
                         .$router
                         .push({
                             path: '/img',
                             query: {
-
+                                SerialID: this.$route.query.SerialID,
+                                CarID: carId,
+                                ColorID: this.$route.query.ColorID
+                            }
+                        })
+                } else {
+                    this
+                        .$router
+                        .push({
+                            path: '/img',
+                            query: {
                                 SerialID: this.$route.query.SerialID,
                                 CarID: carId
                             }
                         })
-
+                }
             }
         },
         mounted() {
@@ -92,7 +104,7 @@
         display: flex;
         flex-direction: column;
     }
-    .detail > p {
+    .detail>p {
         height: 0.8rem;
         line-height: 0.8rem;
         text-align: center;
@@ -103,7 +115,6 @@
         width: 100%;
         height: 100%;
         overflow-y: auto;
-
     }
     .img {
         width: 100%;
@@ -115,7 +126,6 @@
         width: 100%;
         position: absolute;
         top: -25%;
-
     }
     .info {
         background: #fff;
@@ -125,10 +135,10 @@
         align-items: center;
         margin-bottom: 0.1rem;
     }
-    .info > div p {
+    .info>div p {
         line-height: 2;
     }
-    .info > div p:nth-child(1) {
+    .info>div p:nth-child(1) {
         color: #f00;
     }
     .info button {
@@ -145,30 +155,29 @@
         padding: 0 0.36rem;
         background: #fff;
     }
-
-    .type-item > div > p {
+    .type-item>div>p {
         height: 0.5rem;
         line-height: 0.5rem;
         color: #999;
         padding: 0 0.36rem;
     }
-    .type-item > div > ul {
+    .type-item>div>ul {
         padding: 0 0.36rem;
         background: #fff;
     }
-    .type-item > div > ul li p {
+    .type-item>div>ul li p {
         line-height: 2;
     }
-    .type-item > div > ul li p:nth-child(2) {
+    .type-item>div>ul li p:nth-child(2) {
         color: #bdbdbd;
     }
-    .type-item > div > ul li p:nth-child(3) {
+    .type-item>div>ul li p:nth-child(3) {
         text-align: right;
     }
-    .type-item > div > ul li p:nth-child(3) span:nth-child(2) {
+    .type-item>div>ul li p:nth-child(3) span:nth-child(2) {
         color: #f00;
     }
-    .type-item > div > ul button {
+    .type-item>div>ul button {
         width: 100%;
         height: 0.8rem;
         line-height: 0.8rem;
@@ -191,5 +200,4 @@
     .active {
         color: #00afff;
     }
-
 </style>

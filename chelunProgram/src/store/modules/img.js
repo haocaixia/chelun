@@ -26,7 +26,6 @@ const mutations = {
         state.isFetching = true;
     },
     getCurrent(state,payload){
-        console.log(payload)  
         state.current=payload
     }
 }
@@ -52,7 +51,6 @@ const actions = {
         })
     },
     getCurrentData({commit},payload){
-        console.log(payload)  
         commit('getCurrent', payload);
     }
 }

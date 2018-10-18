@@ -17,10 +17,9 @@ const actions={
         getColorList(payload).then(res=>{
             commit('updataCityList',res.data)
         })
-        
     },
     getColorName({commit},payload){
-        console.log(payload)
+       
         commit('colorName',payload)
     }
 }
